@@ -9,7 +9,7 @@
    <body>
     <h1>投稿</h1>
 
-    <form action="/posts" method="POST">
+    <form action="/posts" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="body">
@@ -25,6 +25,12 @@
             @endforeach
             </select>
         </div>
+        <!-- ここから追加 -->
+            <div class="image">
+                 <h3>画像</h3>
+                <input type="file" name="image">
+            </div>
+        <!-- ここまで追加 -->
 
         <input type="submit" value="投稿">
 
