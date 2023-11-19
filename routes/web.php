@@ -18,9 +18,9 @@ use App\Http\Controllers\PostController;//外部にあるPostControllerクラス
 
 Route::get('/', [PostController::class, 'index']);
 Route::get('/posts', [PostController::class, 'index']); // 追加
-Route::get('/posts/create', [PostController::class, 'create']);
-Route::post('/posts',[PostController::class, 'store']);
-Route::get('/posts/{post}', [PostController::class ,'show']);// '/posts/{対象データのID}'にGetリクエストが来たら、PostControllerのshowメソッドを実行する
+Route::get('/posts/create', [PostController::class, 'create']); //投稿フォームの表示
+Route::post('/posts', [PostController::class, 'store']);  //画像を含めた投稿の保存処理
+Route::get('/posts/{post}', [PostController::class, 'show']); //投稿詳細画面の表示// '/posts/{対象データのID}'にGetリクエストが来たら、PostControllerのshowメソッドを実行する
 
 
 Route::get('/dashboard', function () {

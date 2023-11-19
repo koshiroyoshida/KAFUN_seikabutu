@@ -15,6 +15,13 @@
                 <h3>本文</h3>
                 <p>{{ $post->body }}</p>    
             </div>
+            <!-- ここから追加 -->
+            @if($post->image_url)
+            <div>
+                <img src="{{ $post->image_url}}" alt="画像が読み込めません。"/>
+            </div>
+            @endif
+            <!-- ここまで追加 -->
         </div>
         <div class="footer">
             <a href="/">戻る</a>
