@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;//use宣言は外部にあるクラスをPostController内にインポートできる。
 //この場合、App\Models内のPostクラスをインポートしている。
 use App\Models\Area;
+use App\Models\Comment;
 use Auth;
 use Cloudinary; 
 
@@ -25,8 +26,11 @@ class PostController extends Controller
     
     public function show(Post $post)
     {
+    $post->load('comments.user');
+    
     return view('posts.show')->with(['post' => $post]);
  //'post'はbladeファイルで使う変数。中身は$postはid=1のPostインスタンス。
+ 
     }
 
     public function store(Request $request, Post $post)
@@ -49,6 +53,21 @@ class PostController extends Controller
         return redirect('/posts/' . $post->id);
         
         
+    }
+    
+    public function addComment(Request $request, Post $post)
+    {
+    $request->validate([
+        'body' => 'required|min:5', // コメントのバリデーションルール
+    ]);
+
+    // コメントを保存
+    $post->comments()->create([
+        'body' => $request->input('body'),
+        'user_id' => Auth::id(),
+    ]);
+
+    return redirect('/posts/' . $post->id);
     }
     
     
