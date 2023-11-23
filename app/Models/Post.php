@@ -19,8 +19,12 @@ class Post extends Model
          return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
     
-     public function user()
+    public function user()
     {
         return $this->belongsTo(User::class);//Post モデルに user_id を設定するためのリレーションを追加
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class); //、hasMany メソッドを使用して Comment::class と関連付
     }
 }
