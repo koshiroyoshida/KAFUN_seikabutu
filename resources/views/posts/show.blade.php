@@ -12,9 +12,15 @@
         </h1>
         <div class="content">
             <div class="content__post">
+                
                 <h3>本文</h3>
                 <p>{{ $post->body }}</p>    
             </div>
+            
+         <div class="edit">
+            <a href="/posts/{{ $post->id }}/edit">投稿を編集</a>
+        </div>
+            
             <!-- ここから追加 -->
             @if($post->image_url)
             <div>
@@ -39,6 +45,9 @@
         <textarea name="comment" placeholder="コメントを入力"></textarea>
         <button type="submit">コメントする</button>
     </form>
+    
+
+            
         <div class="footer">
             <a href="/">戻る</a>
         </div>
