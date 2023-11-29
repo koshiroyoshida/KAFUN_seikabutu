@@ -70,5 +70,30 @@ class PostController extends Controller
     return redirect('/posts/' . $post->id);
     }
     
+    public function edit(Post $post)
+    {
+    $areas = Area::all();
+       // 編集フォームを表示するためのビューを返す
+    return view('posts.edit', compact('post', 'areas'));
+    }
+ 
+    public function update(Request $request, Post $post)
+    {
+
+    $post->update([
+        'body' => $request->input('post.body'),
+        'area_id' => $request->input('post.area_id'),
+        // 他に必要な更新項目を追加
+    ]);
+
+    return redirect(route('posts.show', ['post' => $post->id]));
+    }
+    
+    public function delete(Post $post)
+    {
+    $post->delete();
+    return redirect('/');
+    }
+
     
 }
