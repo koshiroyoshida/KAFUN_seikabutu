@@ -26,10 +26,17 @@ Route::post('/posts/{post}/comment', [CommentController::class, 'store']);
 Route::post('/posts/{post}/comment', [CommentController::class, 'store'])->name('posts.addComment');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
+
 Route::delete('/posts/{post}', [PostController::class, 'delete']);
 
 Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
 Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+
+
+Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+Route::delete('/comments/{comment}', [CommentController::class, 'delete']);
+Route::delete('/comments/{comment}', [CommentController::class, 'delete'])->name('comments.delete');
 
 
 Route::get('/dashboard', function () {
@@ -45,3 +52,5 @@ Route::middleware('auth')->group(function () {
 Route::resource('comment', 'CommentController', ['only' => ['store']]);
 
 require __DIR__.'/auth.php';
+
+
