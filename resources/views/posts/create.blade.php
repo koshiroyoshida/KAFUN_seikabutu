@@ -25,6 +25,7 @@
             @endforeach
             </select>
         </div>
+        
         <!-- ここから追加 -->
             <div class="image">
                  <h3>画像</h3>

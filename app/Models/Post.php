@@ -29,4 +29,9 @@ class Post extends Model
         return $this->hasMany(Comment::class); //、hasMany メソッドを使用して Comment::class と関連付
         
     }
+    
+     public function area()
+    {
+    return $this->belongsTo(Area::class);
+    }
 }

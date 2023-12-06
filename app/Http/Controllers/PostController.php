@@ -7,6 +7,7 @@ use App\Models\Post;//use宣言は外部にあるクラスをPostController内�
 //この場合、App\Models内のPostクラスをインポートしている。
 use App\Models\Area;
 use App\Models\Comment;
+use App\Models\User;
 use Auth;
 use Cloudinary; 
 
@@ -26,11 +27,11 @@ class PostController extends Controller
     
     public function show(Post $post)
     {
-    $post->load('comments.user');
-    
-    return view('posts.show')->with(['post' => $post]);
- //'post'はbladeファイルで使う変数。中身は$postはid=1のPostインスタンス。
- 
+        $post->load('comments.user');
+        
+        return view('posts.show')->with(['post' => $post]);
+     //'post'はbladeファイルで使う変数。中身は$postはid=1のPostインスタンス。
+     
     }
 
     public function store(Request $request, Post $post)
@@ -70,23 +71,36 @@ class PostController extends Controller
     return redirect('/posts/' . $post->id);
     }
     
-    public function edit(Post $post)
+    public function edit(Post $post,Comment $comment)
     {
     $areas = Area::all();
        // 編集フォームを表示するためのビューを返す
     return view('posts.edit', compact('post', 'areas'));
+    return view('comments.edit', compact('comment'));
     }
  
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Post $post, Comment $comment)
     {
 
     $post->update([
         'body' => $request->input('post.body'),
         'area_id' => $request->input('post.area_id'),
+        
         // 他に必要な更新項目を追加
+    
+        
     ]);
-
-    return redirect(route('posts.show', ['post' => $post->id]));
+   
+ 
+    
+    $comment->update([
+        'body' => $request->input('body'),
+    ]);
+    
+    return redirect(route('posts.show', ['post' => $post->id])); 
+    return redirect('/posts/' . $comment->post_id);
+ 
+    
     }
     
     public function delete(Post $post)
