@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <h1>コメント一覧</h1>
 
     @foreach ($comments as $comment)
