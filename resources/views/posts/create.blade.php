@@ -13,7 +13,7 @@
         @csrf
 
         <div class="body">
-            <h2>花粉情報</h2>
+            <h2>花粉情報を共有しよう。</h2>
             <textarea name="post[body]" placeholder="花粉情報を共有しよう。"></textarea>
         </div>
 

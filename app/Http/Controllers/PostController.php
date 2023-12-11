@@ -14,11 +14,7 @@ use Cloudinary;
 class PostController extends Controller
 {
    
-    public function index(Post $post)
-    {
-        return view('posts.index')->with(['posts' => $post->getPaginateByLimit()]);
-        //getPaginateByLimit()はPost.phpで定義したメソッドです。
-    }
+    
     public function create()
     {
         $areas = Area::all(); // 都道府県の一覧を取得 
@@ -78,6 +74,8 @@ class PostController extends Controller
     return view('posts.edit', compact('post', 'areas'));
     return view('comments.edit', compact('comment'));
     }
+    
+
  
     public function update(Request $request, Post $post, Comment $comment)
     {
@@ -91,8 +89,6 @@ class PostController extends Controller
         
     ]);
    
- 
-    
     $comment->update([
         'body' => $request->input('body'),
     ]);
@@ -108,6 +104,8 @@ class PostController extends Controller
     $post->delete();
     return redirect('/');
     }
-
     
+    
+
+   
 }
