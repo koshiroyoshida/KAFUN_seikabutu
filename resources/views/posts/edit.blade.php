@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <title>Edit Post</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-</head>
-<body>
+<x-app-layout>
     <h1>Edit Post</h1>
 
     <form action="{{ route('posts.update', ['post' => $post]) }}" method="POST">
@@ -37,5 +29,4 @@
         
         
     </form>
-</body>
-</html>
+</x-app-layout>

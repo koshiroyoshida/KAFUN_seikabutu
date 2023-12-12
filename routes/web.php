@@ -17,10 +17,9 @@ use App\Http\Controllers\SearchController;
 |
 */
 
-Route::get('/posts/create', [PostController::class, 'create']); //投稿フォームの表示
+Route::get('/posts/create', [PostController::class, 'create'])->name('create'); //投稿フォームの表示
 Route::post('/posts', [PostController::class, 'store']);  //画像を含めた投稿の保存処理
 Route::get('/posts/{post}', [PostController::class, 'show']); //投稿詳細画面の表示// '/posts/{対象データのID}'にGetリクエストが来たら、PostControllerのshowメソッドを実行する
-Route::post('/posts/{post}/comment', [CommentController::class, 'store']);
 Route::post('/posts/{post}/comment', [CommentController::class, 'store'])->name('posts.addComment');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
