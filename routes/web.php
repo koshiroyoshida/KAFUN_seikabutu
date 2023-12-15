@@ -17,39 +17,56 @@ use App\Http\Controllers\SearchController;
 |
 */
 
-Route::get('/posts/create', [PostController::class, 'create'])->name('create'); //投稿フォームの表示
-Route::post('/posts', [PostController::class, 'store']);  //画像を含めた投稿の保存処理
-Route::get('/posts/{post}', [PostController::class, 'show']); //投稿詳細画面の表示// '/posts/{対象データのID}'にGetリクエストが来たら、PostControllerのshowメソッドを実行する
-Route::post('/posts/{post}/comment', [CommentController::class, 'store'])->name('posts.addComment');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
-
-
-Route::get('/', [SearchController::class, 'search'])->name('search');
-
-Route::delete('/posts/{post}', [PostController::class, 'delete']);
-
-Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
-Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
-
-
-Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])->name('comments.edit');
-Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
-Route::delete('/comments/{comment}', [CommentController::class, 'delete']);
-Route::delete('/comments/{comment}', [CommentController::class, 'delete'])->name('comments.delete');
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [PostController::class, 'index'])
+        ->name('index');
+    
+    Route::get('/posts/create', [PostController::class, 'create'])
+        ->name('create');
+    
+    Route::post('/posts', [PostController::class, 'store'])
+        ->name('posts.store');
+    
+    Route::get('/posts/{post}', [PostController::class, 'show'])
+        ->name('posts.show');
+        
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
+    
+    Route::post('/posts/{post}/comment', [CommentController::class, 'store'])
+        ->name('posts.addComment');
+    
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])
+        ->name('posts.edit');
+    
+    Route::put('/posts/{post}', [PostController::class, 'update'])
+        ->name('posts.update');
+    
+    Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])
+        ->name('comments.edit');
+    
+    Route::put('/comments/{comment}', [CommentController::class, 'update'])
+        ->name('comments.update');
+    
+    Route::delete('/comments/{comment}', [CommentController::class, 'delete'])
+        ->name('comments.delete');
+    
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['verified'])
+      ->name('dashboard');
+    
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+    
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
+    
+    Route::resource('comment', 'CommentController', ['only' => ['store']]);
 });
 
-Route::resource('comment', 'CommentController', ['only' => ['store']]);
-
+// 認証ルートの定義
 require __DIR__.'/auth.php';
-
 

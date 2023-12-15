@@ -13,7 +13,16 @@ use Cloudinary;
 
 class PostController extends Controller
 {
-   
+  
+    public function index()//追加中、確認
+    {
+        // ここに投稿一覧を取得するロジックを追加する
+        $posts = Post::all();
+
+        // 取得したデータをビューに渡して表示する
+        return view('posts.index', compact('posts'));
+    }
+
     
     public function create()
     {
